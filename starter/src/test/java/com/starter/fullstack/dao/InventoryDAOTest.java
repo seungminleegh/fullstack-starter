@@ -51,7 +51,7 @@ public class InventoryDAOTest {
   }
 
   /**
-   * Test Create method. Check that it the argument Inventory is present in the
+   * Test Create method. Check that the argument Inventory is present in the
    * Mongo collection.
    */
   @Test
@@ -63,5 +63,7 @@ public class InventoryDAOTest {
     List<Inventory> actualInventory = this.inventoryDAO.findAll();
     //Assert that the list of inventory is not empty
     Assert.assertFalse(actualInventory.isEmpty());
+    //Assert that the retrieved inventory has an id of 'null'
+    Assert.assertNull(actualInventory.get(0).getId());
   }
 }
