@@ -63,7 +63,7 @@ public class InventoryDAOTest {
     List<Inventory> actualInventory = this.inventoryDAO.findAll();
     //Assert that the list of inventory is not empty
     Assert.assertFalse(actualInventory.isEmpty());
-    //Assert that the retrieved inventory has an id of 'null'
-    Assert.assertNull(actualInventory.get(0).getId());
+    //Assert that the retrieved inventory does not have a null id
+    Assert.assertFalse(actualInventory.get(0).getId().equals(null));
   }
 }
