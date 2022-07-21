@@ -51,8 +51,12 @@ public class InventoryDAO {
    * @return Created/Updated Inventory.
    */
   public Inventory create(Inventory inventory) {
-    // TODO
-    return null;
+    //Set member variable 'id' to null, so that when it is inserted in the
+    //Mongo collection, the '_id' field is also null
+    inventory.setId(null);
+    //"Upsert" the argument Inventory object into the Mongo collection, and
+    //then return it
+    return this.mongoTemplate.save(inventory);
   }
 
   /**
