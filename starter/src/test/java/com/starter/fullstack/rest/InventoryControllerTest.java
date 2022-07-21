@@ -70,6 +70,7 @@ public class InventoryControllerTest {
     this.inventory = new Inventory();
     this.inventory.setId("OTHER ID");
     this.inventory.setName("ALSO TEST");
+    this.inventory.setProductType("TEST PRODUCTTYPE");
     this.mockMvc.perform(post("/inventory")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
