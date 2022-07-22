@@ -3,6 +3,7 @@ package com.starter.fullstack.dao;
 import com.starter.fullstack.api.Inventory;
 import com.starter.fullstack.config.EmbedMongoClientOverrideConfig;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.Resource;
 import org.junit.After;
 import org.junit.Assert;
@@ -65,5 +66,66 @@ public class InventoryDAOTest {
     Assert.assertFalse(actualInventory.isEmpty());
     //Assert that the retrieved inventory does not have a null id
     Assert.assertFalse(actualInventory.get(0).getId().equals(null));
+  }
+
+  /**
+   * Test Delete method. Check that the argument Inventory is returned when
+   * deleted and that the Mongo collection size reflects the deletion.
+   */
+  @Test
+  public void deletePresent() {
+    int sizeBefore = 0;
+    int sizeAfter = 0;
+
+    Inventory inventory = new Inventory();
+    inventory.setName(NAME);
+    inventory.setProductType(PRODUCT_TYPE);
+
+    this.inventoryDAO.create(inventory);
+    //Number of present Inventory before the successful 'delete' operation
+    sizeBefore = this.mongoTemplate.findAll(Inventory.class).size();
+    //Attempt to delete an inserted Inventory via the the inserted Inventory's
+    //Mongo-provided ID
+    Optional<Inventory> actualInventory = this.inventoryDAO.delete(inventory.getId());
+    //Number of present Inventory after the successful 'delete' operation
+    sizeAfter = this.mongoTemplate.findAll(Inventory.class).size();
+
+    //Assert that the returned inventory is not null
+    Assert.assertTrue(actualInventory.isPresent());
+    //Assert that the returned inventory has the same ID as the argument String
+    Assert.assertTrue(actualInventory.get().getId().equals(inventory.getId()));
+    //Assert that the number of the Mongo collection for this class is
+    //decremented by 1 after a successful deletion.
+    Assert.assertTrue(sizeAfter == (sizeBefore - 1));
+  }
+
+  /**
+   * Test Delete method. Check that an empty Optional is returned when deletion
+   * deletion is unsuccessful and that the Mongo collection size stays the same
+   * after the failed deletion.
+   */
+  @Test
+  public void deleteAbsent() {
+    int sizeBefore = 0;
+    int sizeAfter = 0;
+
+    Inventory inventory = new Inventory();
+    inventory.setName(NAME);
+    inventory.setProductType(PRODUCT_TYPE);
+
+    this.inventoryDAO.create(inventory);
+    //Number of present Inventory before the failed 'delete' operation
+    sizeBefore = this.mongoTemplate.findAll(Inventory.class).size();
+    //Attempt to delete an inserted Inventory via an empty String ID, which we
+    //know that Mongo does not provide as an ObjectId.
+    Optional<Inventory> actualInventory = this.inventoryDAO.delete(new String());
+    //Number of present Inventory after the failed 'delete' operation
+    sizeAfter = this.mongoTemplate.findAll(Inventory.class).size();
+
+    //Assert that the returned inventory is null
+    Assert.assertFalse(actualInventory.isPresent());
+    //Assert that the number of the Mongo collection for this class stays the
+    //same after a failed deletion.
+    Assert.assertTrue(sizeBefore == sizeAfter);
   }
 }

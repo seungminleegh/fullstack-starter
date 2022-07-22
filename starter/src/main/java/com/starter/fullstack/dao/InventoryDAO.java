@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.data.mongodb.core.index.IndexOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 /**
@@ -86,7 +88,12 @@ public class InventoryDAO {
    * @return Deleted Inventory.
    */
   public Optional<Inventory> delete(String id) {
-    // TODO
-    return Optional.empty();
+    //Find and remove a single instance of an object with the provided id, if
+    //it exists
+    Inventory maybeExist = this.mongoTemplate.findAndRemove(Query.query(
+      Criteria.where("_id").is(id)), Inventory.class);
+    //Return the instance wrapped inside an Optional. If it is null, return an
+    //empty Optional
+    return Optional.ofNullable(maybeExist);
   }
 }
