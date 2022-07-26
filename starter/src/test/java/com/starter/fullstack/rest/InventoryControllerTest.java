@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -79,5 +80,42 @@ public class InventoryControllerTest {
 
     Assert.assertEquals(2, this.mongoTemplate.findAll(Inventory.class).size());
   }
+
+  /**
+   * Test delete endpoint, when the provided content (i.e., id) points to an
+   * existing object.
+   * @throws Throwable see MockMvc
+   */
+  @Test
+  public void removePresent() throws Throwable {
+    //Delete inventory via DELETE REST endpoint
+    this.mockMvc.perform(delete("/inventory")
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(this.inventory.getId()))
+      .andExpect(status().isOk());
+
+    //Check that the deletion was successful
+    Assert.assertEquals(0, this.mongoTemplate.findAll(Inventory.class).size());
+  }
+
+  /**
+   * Test delete endpoint, when the provided content (i.e., id) does not point
+   * to an existing object.
+   * @throws Throwable see MockMvc
+   */
+  @Test
+  public void removeAbsent() throws Throwable {
+    //Delete inventory via DELETE REST endpoint
+    this.mockMvc.perform(delete("/inventory")
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(new String()))
+      .andExpect(status().is4xxClientError());
+
+    //Check that the deletion was successful
+    Assert.assertEquals(1, this.mongoTemplate.findAll(Inventory.class).size());
+  }
+
 }
 
