@@ -7,7 +7,8 @@ import Grid from '@material-ui/core/Grid'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { Form, Formik } from 'formik'
-import NumberTextField from '../Form/NumberTextField'
+import CheckboxField from '../Form/CheckboxField'
+import SelectField from '../Form/SelectField'
 import TextField from '../Form/TextField'
 
 class InventoryCreateModal extends React.Component {
@@ -54,52 +55,52 @@ class InventoryCreateModal extends React.Component {
                 <Grid container>
                   <Grid item xs={12} sm={12}>
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, type: "text", required: true, }}
                       name='name'
                       label='Name'
                       component={TextField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, required: true, }}
                       name='productType'
                       label='Product Type'
-                      component={TextField} //Dropdown select that reselects the cufrently available products
+                      component={SelectField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, type: "text", defaultValue: "", }}
                       name='description'
                       label='Description'
                       component={TextField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, type: "number" , defaultValue: 0, }}
                       name='averagePrice'
                       label='Average Price'
-                      component={NumberTextField}
+                      component={TextField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, type: "number" , defaultValue: 0, }}
                       name='amount'
                       label='Amount'
-                      component={NumberTextField}
+                      component={TextField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, required: true, }}
                       name='unitOfMeasurement'
                       label='Unit of Measurement'
-                      component={TextField} //Dropdown of constants
+                      component={SelectField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, type: "date", }}
                       name='bestBeforeDate'
                       label='Best Before Date'
-                      component={TextField} //Date text field input
+                      component={TextField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      custom={{ variant: 'outlined', fullWidth: true, checked: false }}
                       name='neverExpires'
                       label='Never Expires'
-                      component={CheckboxField} //Checkbox input
+                      component={CheckboxField}
                     />
                   </Grid>
                 </Grid>

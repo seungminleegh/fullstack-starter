@@ -1,6 +1,5 @@
 import { getIn } from 'formik'
-//Fix the import to the material-ui checkbox
-import MuiTextField from '@material-ui/core/TextField'
+import MuiCheckboxField from '@material-ui/core/Checkbox'
 import React from 'react'
 
 const fieldToCheckboxField = ({
@@ -30,11 +29,10 @@ const fieldToCheckboxField = ({
   }
 }
 
-//TODO change the MuiTextField to the correct mui checkbox import
 export const CheckboxField = ({ children, ...props }) =>
-  <MuiTextField {...fieldToCheckboxField(props)}>
+  <MuiCheckboxField {...fieldToCheckboxField(props)}>
     {children}
-  </MuiTextField>
+  </MuiCheckboxField>
 
 
 export default CheckboxField

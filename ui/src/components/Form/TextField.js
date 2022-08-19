@@ -10,6 +10,8 @@ const fieldToTextField = ({
   form: { errors, isSubmitting, touched },
   helperText,
   onBlur,
+  required,
+  type,
   variant,
   warning,
   ...props
