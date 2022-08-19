@@ -6,7 +6,7 @@ const fieldToSelectField = ({
   disabled,
   field: { onBlur: fieldOnBlur, ...field },
   form: { errors, isSubmitting, touched },
-  helperText,
+//  helperText,
   onBlur,
   required,
   variant,
@@ -19,7 +19,7 @@ const fieldToSelectField = ({
   return {
     variant: variant,
     error: showError,
-    helperText: showError ? fieldError : warning ?? helperText,
+//    helperText: showError ? fieldError : warning ?? helperText,
     disabled: disabled ?? isSubmitting,
     onBlur: (event) => onBlur ?? fieldOnBlur(event ?? field.name),
     ...field,

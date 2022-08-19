@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Grid from '@material-ui/core/Grid'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'formik'
 import CheckboxField from '../Form/CheckboxField'
 import SelectField from '../Form/SelectField'
 import TextField from '../Form/TextField'
@@ -19,15 +19,6 @@ class InventoryCreateModal extends React.Component {
       handleProduct,
       title,
       initialValues,
-
-      name,
-      productType,
-      description,
-      averagePrice,
-      amount,
-      unitOfMeasurement,
-      bestBeforeDate,
-      neverExpires
     } = this.props
     return (
       <Dialog
@@ -97,7 +88,7 @@ class InventoryCreateModal extends React.Component {
                       component={TextField}
                     />
                     <Field
-                      custom={{ variant: 'outlined', fullWidth: true, checked: false }}
+                      custom={{ variant: 'outlined', fullWidth: true, checked: false, label: "Never Expires" }}
                       name='neverExpires'
                       label='Never Expires'
                       component={CheckboxField}

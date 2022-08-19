@@ -8,7 +8,7 @@ const fieldToTextField = ({
   disabled,
   field: { onBlur: fieldOnBlur, ...field },
   form: { errors, isSubmitting, touched },
-  helperText,
+//  helperText,
   onBlur,
   required,
   type,
@@ -22,7 +22,7 @@ const fieldToTextField = ({
   return {
     variant: variant,
     error: showError,
-    helperText: showError ? fieldError : warning ?? helperText,
+//    helperText: showError ? fieldError : warning ?? helperText,
     disabled: disabled ?? isSubmitting,
     onBlur: (event) => onBlur ?? fieldOnBlur(event ?? field.name),
     ...custom,

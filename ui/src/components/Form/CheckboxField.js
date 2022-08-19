@@ -1,5 +1,6 @@
 import { getIn } from 'formik'
 import MuiCheckboxField from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import React from 'react'
 
 const fieldToCheckboxField = ({
@@ -8,7 +9,7 @@ const fieldToCheckboxField = ({
   disabled,
   field: { onBlur: fieldOnBlur, ...field },
   form: { errors, isSubmitting, touched },
-  helperText,
+//  helperText,
   onBlur,
   variant,
   warning,
@@ -20,7 +21,7 @@ const fieldToCheckboxField = ({
   return {
     variant: variant,
     error: showError,
-    helperText: showError ? fieldError : warning ?? helperText,
+//    helperText: showError ? fieldError : warning ?? helperText,
     disabled: disabled ?? isSubmitting,
     onBlur: (event) => onBlur ?? fieldOnBlur(event ?? field.name),
     ...custom,
@@ -30,10 +31,10 @@ const fieldToCheckboxField = ({
 }
 
 export const CheckboxField = ({ children, ...props }) =>
-  <MuiCheckboxField {...fieldToCheckboxField(props)}>
-    {children}
-  </MuiCheckboxField>
-
+  <FormControlLabel
+    control={<MuiCheckboxField {...fieldToCheckboxField(props)}> {children} </MuiCheckboxField>}
+    label={props.label}
+  />
 
 export default CheckboxField
 
