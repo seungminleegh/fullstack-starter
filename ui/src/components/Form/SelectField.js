@@ -1,17 +1,14 @@
 import { getIn } from 'formik'
-import MuiTextField from '@material-ui/core/TextField'
+import MuiSelectField from '@material-ui/core/Select'
 import React from 'react'
 
-const fieldToTextField = ({
-  backgroundColor,
-  custom,
+const fieldToSelectField = ({
   disabled,
   field: { onBlur: fieldOnBlur, ...field },
   form: { errors, isSubmitting, touched },
 //  helperText,
   onBlur,
   required,
-  type,
   variant,
   warning,
   ...props
@@ -25,19 +22,18 @@ const fieldToTextField = ({
 //    helperText: showError ? fieldError : warning ?? helperText,
     disabled: disabled ?? isSubmitting,
     onBlur: (event) => onBlur ?? fieldOnBlur(event ?? field.name),
-    ...custom,
     ...field,
     ...props,
   }
 }
 
-export const TextField = ({ children, ...props }) =>
-  <MuiTextField {...fieldToTextField(props)}>
+export const SelectField = ({ children, ...props }) =>
+  <MuiSelectField {...fieldToSelectField(props)}>
     {children}
-  </MuiTextField>
+  </MuiSelectField>
 
 
-export default TextField
+export default SelectField
 
-TextField.displayName = 'FormikTextField'
-TextField.tabIndex = 0
+SelectField.displayName = 'FormikSelectField'
+SelectField.tabIndex = 0

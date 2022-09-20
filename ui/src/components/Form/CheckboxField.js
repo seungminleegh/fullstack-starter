@@ -1,8 +1,9 @@
 import { getIn } from 'formik'
-import MuiTextField from '@material-ui/core/TextField'
+import MuiCheckboxField from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import React from 'react'
 
-const fieldToTextField = ({
+const fieldToCheckboxField = ({
   backgroundColor,
   custom,
   disabled,
@@ -10,8 +11,6 @@ const fieldToTextField = ({
   form: { errors, isSubmitting, touched },
 //  helperText,
   onBlur,
-  required,
-  type,
   variant,
   warning,
   ...props
@@ -31,13 +30,13 @@ const fieldToTextField = ({
   }
 }
 
-export const TextField = ({ children, ...props }) =>
-  <MuiTextField {...fieldToTextField(props)}>
-    {children}
-  </MuiTextField>
+export const CheckboxField = ({ children, ...props }) =>
+  <FormControlLabel
+    control={<MuiCheckboxField {...fieldToCheckboxField(props)}> {children} </MuiCheckboxField>}
+    label={props.label}
+  />
 
+export default CheckboxField
 
-export default TextField
-
-TextField.displayName = 'FormikTextField'
-TextField.tabIndex = 0
+CheckboxField.displayName = 'FormikCheckboxField'
+CheckboxField.tabIndex = 0

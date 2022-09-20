@@ -14,6 +14,7 @@ import TableRow from '@material-ui/core/TableRow'
 import { EnhancedTableHead, EnhancedTableToolbar, getComparator, stableSort } from '../components/Table'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import InventoryCreateModal from '../components/Inventory/InventoryCreateModal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,10 +96,16 @@ const InventoryLayout = (props) => {
 
   const isSelected = (id) => selected.indexOf(id) !== -1
 
+  //TODO: Look over here
+  const [isCreateOpen, setCreateOpen] = React.useState(false)
+  const toggleCreate = () => {
+    setCreateOpen(true)
+  }
+
   return (
     <Grid container>
       <Grid item xs={12}>
-        <EnhancedTableToolbar numSelected={selected.length} title='Inventory'/>
+        <EnhancedTableToolbar numSelected={selected.length} title='Inventory' toggleCreate={toggleCreate}/>
         <TableContainer component={Paper}>
           <Table size='small' stickyHeader>
             <EnhancedTableHead
@@ -140,6 +147,14 @@ const InventoryLayout = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
+	<InventoryCreateModal 
+	  title='Create'
+	  formName='inventoryCreate'
+	  isDialogOpen={isCreateOpen}
+	  //handleDialog={}
+	  //handleProduct={}
+	  //initialValues={{}}
+	/>
       </Grid>
     </Grid>
   )
